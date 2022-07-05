@@ -1,0 +1,15 @@
+version: '3'
+services:
+
+#Creating the DNS Service
+  dns:
+    build:
+      context: ./..  
+    image: dns.asa.br:latest
+    container_name: prova2.asa.br
+    restart: unless-stopped
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+    volumes:
+      - ./:/etc/bind
