@@ -10,6 +10,7 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 @	IN	NS	s1.prova.asa.br.
+@	IN	NS	s2.prova.asa.br.
 
 @	IN	A	127.0.0.1
 @	IN	AAAA	::1
