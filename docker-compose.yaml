@@ -1,0 +1,46 @@
+version: '1.4'
+services:
+
+  dns:
+    build:
+      context: ./dns  
+    image: dns.prova:latest
+    container_name: DNS
+    restart: unless-stopped
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+    volumes:
+      - ./dns/primary:/etc/bind
+  
+  nginx:
+    build:
+      context: ./nginx
+    image: web1:latest
+    container_name: WEB_01
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/data:/var/www/application
+
+  apache:
+    build:
+      context: ./apache
+    container_name: WEB_02
+    image: web2:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./apache/data:/var/www/html
+  
+  mail-asa:
+    context: ./mail-asa
+  image: e-Mail:latest
+  container_name: MAIL_ASA
+  ports:
+    - "25:25"
+    - "993:993"
+  volumes:
+    = ./mail-asa/data:/etc/postfix
